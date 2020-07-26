@@ -1,0 +1,1 @@
+insert into users(username, name, surname, birth_date, password) values(?, ?, ?, ?, ?)

@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-and-roles
+      author: roman1306
+      changes:
+        - createTable:
+            tableName: roles
+            remarks: Роли пользователя
+            columns:
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+        - createTable:
+            tableName: users
+            remarks: Пользователи
+            columns:
+              - column:
+                  name: username
+                  type: varchar(50)
+                  remarks: Логин
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(512)
+                  remarks: Хэш пароля
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  remarks: Имя пользователя
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(50)
+                  remarks: Фамилия пользователя
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birth_date
+                  type: date
+                  remarks: Дата рождения пользователя
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: user_roles
+            remarks: Роли пользователей
+            columns:
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_user
+                    references: users(username)
+              - column:
+                  name: role
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_role
+                    references: roles(name)
+        - addPrimaryKey:
+            tableName: user_roles
+            columnNames: username, role

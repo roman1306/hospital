@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+</head>
+<body>
+<div th:fragment="menu">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-success">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{img/hospital.png}" width="30" height="30" class="d-inline-block align-top" alt=""
+                 loading="lazy"
+                 th:text="#{common.menu.brand}">
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}" th:text="#{common.menu.my-records}"></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/doctors}" th:text="#{common.menu.doctors}"></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/contacts}" th:text="#{common.menu.contacts}"></a>
+                </li>
+            </ul>
+            <form class="form-inline" id="logout-form" method="post" th:action="@{/logout}">
+                <span class="navbar-text text-dark" sec:authentication="name"></span>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <a class="btn btn-secondary my-2 my-sm-0 button-margin" type="submit"
+                        th:text="#{common.menu.logout}" href="#" onclick="document.getElementById('logout-form').submit();"></a>
+            </form>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

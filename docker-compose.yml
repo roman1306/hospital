@@ -1,0 +1,44 @@
+version: "3.3"
+
+networks:
+  monitor-net:
+    driver: bridge
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+  database-data: {}
+
+services:
+  postgres:
+    image: postgres
+    hostname: postgres
+    container_name: postgres
+    ports:
+    - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: registry
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - monitor-net
+  registry:
+    build: .
+    container_name: registry
+    ports:
+    - "8080:8080"
+    - "5005:5005"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/registry
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_DATA: classpath:local/data.sql
+      SPRING_PROFILES_ACTIVE: local,demo
+      USER_JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+    depends_on:
+      - postgres
+    networks:
+      - monitor-net

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title th:text="#{page.register.title}"></title>
+    <link th:rel="stylesheet" type="text/css" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link th:href="@{css/index.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body class="text-center">
+
+<form class="form-regystry" method="POST" th:action="@{/register}">
+    <img th:src="@{img/hospital.png}" width="100" height="100">
+    <h1 class="h3 mb-3 font-weight-normal" th:text="#{page.register.header}"></h1>
+
+    <div class="form-group row">
+        <div class="col-6">
+            <input name="name" class="form-control" th:placeholder="#{page.register.field.name}"/>
+        </div>
+        <div class="col-6">
+            <small id="nameHelp" class="text-danger">
+            </small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-6">
+            <input name="surname" class="form-control" th:placeholder="#{page.register.field.surname}"/>
+        </div>
+        <div class="col-6">
+            <small id="surnameHelp" class="text-danger">
+            </small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-6">
+            <input name="birthDate" class="form-control" type="date" th:placeholder="#{page.register.field.birthday}"/>
+        </div>
+        <div class="col-6">
+            <small id="birthDateHelp" class="text-danger">
+            </small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-6">
+            <input name="username" class="form-control" th:placeholder="#{page.register.field.login}"/>
+        </div>
+        <div class="col-6">
+            <small id="usernameHelp" class="text-danger">
+            </small>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="col-6">
+            <input name="password" class="form-control" th:placeholder="#{page.register.field.password}"
+                   type="password" id="password1" data-dismiss="alert"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-6">
+            <input class="form-control" th:placeholder="#{page.register.field.password-repeat}" type="password"
+                   id="password2" data-dismiss="alert"/>
+        </div>
+        <div class="col-6">
+            <small id="passwordHelp" class="text-danger" th:text="#{page.register.error.password}">
+            </small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-6">
+            <select class="form-control" name="roles">
+                <option th:each="role : ${roles}" th:text="#{'roles.' + ${role.name}}" th:value="${role.name}"></option>
+            </select>
+        </div>
+        <div class="col-6">
+            <small id="rolesHelp" class="text-danger">
+            </small>
+        </div>
+    </div>
+
+    <input id="register-btn" type="submit" class="btn btn-ls btn-success btn-block"
+           th:attr="value=#{page.register.button.register}"/>
+    <p class="mt-5 mb-3 text-muted" th:text="#{page.register.signature}"></p>
+</form>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{/webjars/popper.js/2.0.2/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+<script th:src="@{js/validation-register.js}"></script>
+</body>
+</html>

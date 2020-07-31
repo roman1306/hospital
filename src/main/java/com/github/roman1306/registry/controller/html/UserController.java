@@ -55,6 +55,7 @@ public class UserController implements MessageSourceAware {
 
     @PostMapping("/register")
     View register(@Validated @RequestBody User user) {
+        userService.register(user);
         return new RedirectView("/");
     }
 

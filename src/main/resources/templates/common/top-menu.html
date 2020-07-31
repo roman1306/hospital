@@ -24,12 +24,16 @@
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/contacts}" th:text="#{common.menu.contacts}"></a>
                 </li>
+                <li class="nav-item active" sec:authorize="hasRole('ROLE_DOCTOR')">
+                    <a class="nav-link" th:href="@{/patients}" th:text="#{common.menu.patients}"></a>
+                </li>
             </ul>
             <form class="form-inline" id="logout-form" method="post" th:action="@{/logout}">
                 <span class="navbar-text text-dark" sec:authentication="principal.name"></span>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <a class="btn btn-secondary my-2 my-sm-0 button-margin" type="submit"
-                        th:text="#{common.menu.logout}" href="#" onclick="document.getElementById('logout-form').submit();"></a>
+                   th:text="#{common.menu.logout}" href="#"
+                   onclick="document.getElementById('logout-form').submit();"></a>
             </form>
         </div>
     </nav>

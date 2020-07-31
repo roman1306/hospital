@@ -69,8 +69,8 @@ public class JdbcUserDao implements UserDao {
                 user.getBirthDate(),
                 user.getPassword()
         );
-        for (GrantedAuthority role : user.getAuthorities()) {
-            this.jdbc.update(userRoleSql, user.getUsername(), role.getAuthority());
+        for (Role role : user.getAuthorities()) {
+            this.jdbc.update(userRoleSql, user.getUsername(), role.getName());
         }
         this.jdbc.update(roleSql, ps -> {
             ps.setObject(1, UUID.randomUUID());

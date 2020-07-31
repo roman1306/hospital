@@ -33,6 +33,9 @@ public class DefaultContentProvider implements ContentProvider {
     private final DictionaryDao<DoctorView> doctors;
 
     @NonNull
+    private final DictionaryDao<PatientView> patients;
+
+    @NonNull
     private final Collection<RecordRoleBasedStrategy<?>> records;
 
     public DefaultContentProvider(
@@ -40,12 +43,13 @@ public class DefaultContentProvider implements ContentProvider {
             @Qualifier("available-departments-dao") @NonNull DictionaryDao<DepartmentView> availableDepartments,
             @NonNull DictionaryDao<SpecialityView> specialities,
             @NonNull DictionaryDao<DoctorView> doctors,
-            @NonNull Collection<RecordRoleBasedStrategy<?>> records
+            @NonNull DictionaryDao<PatientView> patients, @NonNull Collection<RecordRoleBasedStrategy<?>> records
     ) {
         this.departments = departments;
         this.specialities = specialities;
         this.availableDepartments = availableDepartments;
         this.doctors = doctors;
+        this.patients = patients;
         this.records = records;
     }
 
@@ -63,6 +67,11 @@ public class DefaultContentProvider implements ContentProvider {
     @Override
     public List<DepartmentView> availableDepartments() {
         return this.availableDepartments.load();
+    }
+
+    @Override
+    public List<PatientView> patients() {
+        return this.patients.load();
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.github.roman1306.registry.service.spi;
 import com.github.roman1306.registry.entity.User;
 import com.github.roman1306.registry.presentation.DepartmentView;
 import com.github.roman1306.registry.presentation.DoctorView;
+import com.github.roman1306.registry.presentation.PatientView;
 import com.github.roman1306.registry.presentation.SpecialityView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,12 @@ public interface ContentProvider {
      */
     @NonNull
     List<DepartmentView> availableDepartments();
+
+    /**
+     * @return департаменты, доступные для записи на прием
+     */
+    @NonNull
+    List<PatientView> patients();
 
     /**
      * @return доктора

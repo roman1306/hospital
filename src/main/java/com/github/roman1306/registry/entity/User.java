@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<Role> getAuthorities() {
         return this.roles;
     }
 
@@ -74,12 +74,12 @@ public class User implements UserDetails {
     }
 
     public boolean isPatient() {
-        return this.getRoles().stream().map(Role::getAuthority)
+        return this.getRoles().stream().map(Role::getName)
                 .anyMatch("PATIENT"::equalsIgnoreCase);
     }
 
     public boolean isDoctor() {
-        return this.getRoles().stream().map(Role::getAuthority)
+        return this.getRoles().stream().map(Role::getName)
                 .anyMatch("DOCTOR"::equalsIgnoreCase);
     }
 }

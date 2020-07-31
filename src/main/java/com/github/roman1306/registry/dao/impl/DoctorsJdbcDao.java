@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
+import static java.util.Arrays.asList;
+
 @Repository
 public class DoctorsJdbcDao implements DictionaryDao<DoctorView> {
     @NonNull
@@ -32,6 +34,7 @@ public class DoctorsJdbcDao implements DictionaryDao<DoctorView> {
                         .setName(rs.getString("name"))
                         .setDescription(rs.getString("description"))
                         .setPhoto(rs.getString("photo"))
+                        .setSpecialities(asList(rs.getString("specialities").split(",")))
         );
     }
 }

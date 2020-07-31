@@ -3,6 +3,7 @@ package com.github.roman1306.registry.presentation;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -16,4 +17,7 @@ public class DoctorView {
     private String description;
 
     private String photo;
+
+    private List<String> specialities;
+
 }

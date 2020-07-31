@@ -41,12 +41,14 @@ public class JdbcUserDao implements UserDao {
         String sql = this.sqlHolder.load("sql/get-user.sql");
         final AtomicReference<User> userHolder = new AtomicReference<>();
         this.jdbc.query(sql, (rs, i) -> {
-            String name = rs.getString("username");
+            String uname = rs.getString("username");
             String password = rs.getString("password");
             String role = rs.getString("role");
+            String name = rs.getString("name");
             userHolder.compareAndSet(null, new User());
-            return userHolder.updateAndGet(user -> user.setUsername(name)
+            return userHolder.updateAndGet(user -> user.setUsername(uname)
                     .setPassword(password)
+                    .setName(name)
                     .setRoles(Set.of(new Role().setName(role))));
         }, username);
         return userHolder.get();
